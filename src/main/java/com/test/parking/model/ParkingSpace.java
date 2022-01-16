@@ -34,6 +34,9 @@ public class ParkingSpace {
 	private int spaceNumber;
 	
 	@Column(nullable = false)
+	private String spaceType;
+	
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private SpaceStatus spaceStatus;
 	
