@@ -4,11 +4,13 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.test.parking.model.ParkingSpace;
 import com.test.parking.model.Ticket;
 import com.test.parking.repository.TicketRepository;
 
+@Service
 public class TicketService {
 	
 	@Autowired
