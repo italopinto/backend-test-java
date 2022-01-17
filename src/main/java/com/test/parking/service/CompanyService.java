@@ -2,22 +2,16 @@ package com.test.parking.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.test.parking.model.Company;
-import com.test.parking.model.ParkingSpace;
 import com.test.parking.repository.CompanyRepository;
-import com.test.parking.repository.ParkingSpaceRepository;
 
 @Service
 public class CompanyService {
 	
 	@Autowired
 	private CompanyRepository companyRepository;
-	
-	@Autowired
-	private ParkingSpaceRepository parkingSpace;
 	
 	@Autowired
 	private ParkingSpaceService parkingService;
