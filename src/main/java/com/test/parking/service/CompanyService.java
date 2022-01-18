@@ -19,8 +19,9 @@ public class CompanyService {
 	public Company addCompany(Company company) {
 		int motorcycles = company.getMotorcyclesSpace();
 		int cars = company.getCarsSpace();
+		Company savedCompany = companyRepository.save(company);
 		parkingService.companySpaces(company, motorcycles, cars);
-		return companyRepository.save(company);
+		return savedCompany;
 	}
 	
 	public List<Company> listCompany() {
@@ -36,8 +37,15 @@ public class CompanyService {
 		return "Company id: " + id + ", has been deleted successfuly.";
 	}
 	
-	public Company updateCompany(Company company) {
-		Company existingCompany = companyRepository.findById(company.getId()).orElse(null);
+	public Company updateCompany(Company company, long id) {
+		Company existingCompany = companyRepository.findById(id).orElse(null);
+		
+		int carSpaceBefore = existingCompany.getCarsSpace();
+		int newCarsSpaces = company.getCarsSpace();
+		
+		int motorSpaceBefore = existingCompany.getMotorcyclesSpace();
+		int newMotorcyclesSpaces = company.getMotorcyclesSpace();
+		
 		existingCompany.setName(company.getName());
 		existingCompany.setCnpj(company.getCnpj());
 		existingCompany.setAddress(company.getAddress());
@@ -45,10 +53,7 @@ public class CompanyService {
 		existingCompany.setMotorcyclesSpace(company.getMotorcyclesSpace());
 		existingCompany.setCarsSpace(company.getCarsSpace());
 		
-		int carsDifferenceSpaces = existingCompany.getCarsSpace() - company.getCarsSpace();
-		int motorcyclesDifferenceSpaces = existingCompany.getMotorcyclesSpace() - company.getMotorcyclesSpace();
-		
-		parkingService.companySpacesUpdate(existingCompany, motorcyclesDifferenceSpaces, carsDifferenceSpaces);
+		parkingService.companySpacesUpdate(existingCompany, motorSpaceBefore, newMotorcyclesSpaces, carSpaceBefore, newCarsSpaces);
 		
 		return companyRepository.save(existingCompany);
 	}

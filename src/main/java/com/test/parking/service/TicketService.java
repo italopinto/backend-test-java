@@ -21,13 +21,13 @@ public class TicketService {
 	
 	public Ticket entranceTicket(Ticket ticket) {
 		ParkingSpace availableSpace = parkingService.availableSpace();
-		ticket.setSpace(availableSpace);
+		ticket.setParkingSpace(availableSpace);
 		parkingService.changeStatus(availableSpace, 2);
 		return ticketRepository.save(ticket);
 	}
 	
 	public Ticket exitTicket(Ticket ticket) {
-		parkingService.changeStatus(ticket.getSpace(), 1);
+		parkingService.changeStatus(ticket.getParkingSpace(), 1);
 		ticket.setExitTime(Timestamp.from(Instant.now()));
 		return ticketRepository.save(ticket);
 	}

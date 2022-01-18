@@ -19,54 +19,56 @@ public class ParkingSpaceService {
 	private ParkingSpaceRepository parkingRepository;
 	
 	public void companySpaces(Company company, int motorcycles, int cars) {
-		ParkingSpace newSpace = new ParkingSpace();
 		
 		if (motorcycles != 0) {
 			for (int i = 1; i <= motorcycles; i++) {
-				newSpace.setSpaceNumber(i);
-				newSpace.setSpaceType("motorcycle");
-				newSpace.setCompany(company);
-				parkingRepository.save(newSpace);
+				ParkingSpace motoSpace = new ParkingSpace();
+				motoSpace.setSpaceNumber(i);
+				motoSpace.setSpaceType("motorcycle");
+				motoSpace.setCompany(company);
+				parkingRepository.save(motoSpace);
 			}
 		}
 		
 		if (cars != 0) {
 			for (int i = 1; i <= cars; i++) {
-				newSpace.setSpaceNumber(i);
-				newSpace.setSpaceType("car");
-				newSpace.setCompany(company);
-				parkingRepository.save(newSpace);
+				ParkingSpace carSpace = new ParkingSpace();
+				carSpace.setSpaceNumber(i);
+				carSpace.setSpaceType("car");
+				carSpace.setCompany(company);
+				parkingRepository.save(carSpace);
 			}
 		}
 	}
 	
-	public void companySpacesUpdate(Company company, int motorcyclesDifferenceSpaces, int carsDifferenceSpaces) {
-		ParkingSpace newSpace = new ParkingSpace();
+	public void companySpacesUpdate(Company company, int motorSpacesBefore, int newMotorcyclesSpaces,  int carSpacesBefore, int newCarsSpaces) {
 		
-		if (motorcyclesDifferenceSpaces < 0) {
-			for (int i = 1; i <= motorcyclesDifferenceSpaces*-1; i++) {
-				newSpace.setSpaceNumber(i);
-				newSpace.setSpaceType("motorcycle");
-				newSpace.setCompany(company);
-				parkingRepository.save(newSpace);
+		if (motorSpacesBefore < newMotorcyclesSpaces) {
+			for (int i = motorSpacesBefore+1; i <= newMotorcyclesSpaces; i++) {
+				ParkingSpace motoSpace = new ParkingSpace();
+				motoSpace.setSpaceNumber(i);
+				motoSpace.setSpaceType("motorcycle");
+				motoSpace.setCompany(company);
+				parkingRepository.save(motoSpace);
 			}
-		} else if (motorcyclesDifferenceSpaces > 0) {
-			List<ParkingSpace> spacesToDelete = parkingRepository.findAll(Sort.by("motorcycle").and(Sort.by("space_number").descending()));
-			for (int i = 1; i <= motorcyclesDifferenceSpaces; i++) {
+		} else if (motorSpacesBefore > newMotorcyclesSpaces) {
+			List<ParkingSpace> spacesToDelete = parkingRepository.findAllSpaces("motorcycle");
+			for (int i = 0; i < motorSpacesBefore - newMotorcyclesSpaces; i++) {
 				parkingRepository.delete(spacesToDelete.get(i));
 			}
 		}
 
-		if (carsDifferenceSpaces < 0) {
-			for (int i = 1; i <= carsDifferenceSpaces*-1; i++) {
-				newSpace.setSpaceNumber(i);
-				newSpace.setSpaceType("car");
-				newSpace.setCompany(company);
-				parkingRepository.save(newSpace);
+		if (carSpacesBefore < newCarsSpaces) {
+			for (int i = carSpacesBefore+1; i <= newCarsSpaces; i++) {
+				ParkingSpace carSpace = new ParkingSpace();
+				carSpace.setSpaceNumber(i);
+				carSpace.setSpaceType("car");
+				carSpace.setCompany(company);
+				parkingRepository.save(carSpace);
 			}
-		} else if (carsDifferenceSpaces > 0) {
-			List<ParkingSpace> spacesToDelete = parkingRepository.findAll(Sort.by("car").and(Sort.by("space_number").descending()));
-			for (int i = 1; i <= carsDifferenceSpaces; i++) {
+		} else if (carSpacesBefore > newCarsSpaces) {
+			List<ParkingSpace> spacesToDelete = parkingRepository.findAllSpaces("car");
+			for (int i = 0; i < carSpacesBefore - newCarsSpaces; i++) {
 				parkingRepository.delete(spacesToDelete.get(i));
 			}
 		}
