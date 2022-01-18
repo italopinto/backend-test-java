@@ -1,6 +1,6 @@
 package com.test.parking.model;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,11 +16,14 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@SuppressWarnings("serial")
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "company")
-public class Company {
+public class Company extends Auditable implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +33,13 @@ public class Company {
 	private String name;
 	
 	@Column(nullable = false)
-	private int cnpj;
+	private long cnpj;
 	
 	@Column(nullable = false)
 	private String address;
 	
 	@Column(nullable = false)
-	private int phone;
+	private long phone;
 	
 	@Column(nullable = false)
 	private int motorcyclesSpace;
@@ -44,12 +47,8 @@ public class Company {
 	@Column(nullable = false)
 	private int carsSpace;
 	
-	@JsonManagedReference
-    @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ParkingSpace> parkingSpaces; 
-	
-	private Timestamp createdAt;
-	
-	private Timestamp updatedAt;
 	
 }
