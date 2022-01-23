@@ -31,8 +31,8 @@ public class VehicleService {
 		return "Vehicle id: " + id + ", has been deleted successfuly.";
 	}
 	
-	public Vehicle updateVehicle(Vehicle vehicle) {
-		Vehicle existingVehicle = vehicleRepository.findById(vehicle.getId()).orElse(null);
+	public Vehicle updateVehicle(Vehicle vehicle, long id) {
+		Vehicle existingVehicle = vehicleRepository.findById(id).orElse(null);
 		existingVehicle.setBrand(vehicle.getBrand());
 		existingVehicle.setModel(vehicle.getModel());
 		existingVehicle.setColor(vehicle.getColor());
