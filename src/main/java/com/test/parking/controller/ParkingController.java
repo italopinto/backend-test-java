@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.parking.model.Company;
+import com.test.parking.model.Vehicle;
 import com.test.parking.service.CompanyService;
+import com.test.parking.service.VehicleService;
 
 @CrossOrigin("*")
 @RestController
@@ -26,6 +28,9 @@ public class ParkingController {
 	
 	@Autowired
 	private CompanyService companyService;
+	
+	@Autowired
+	private VehicleService vehicleService;
 	
 	@PostMapping(value = "/company")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -54,4 +59,29 @@ public class ParkingController {
 		return "Company id: " + id + ", has been successfuly deleted";
 	}
 	
+	@PostMapping(value = "/vehicle")
+	public Vehicle registerVehicle(@Valid @RequestBody Vehicle vehicle) {
+		return vehicleService.addVehicle(vehicle);
+	}
+	
+	@GetMapping(value = "/vehicle")
+	public List<Vehicle> listVehicle() {
+		return vehicleService.listVehicle();
+	}
+	
+	@GetMapping(value = "/vehicle/{id}")
+	public Vehicle listOneVehicle(@PathVariable long id) {
+		return vehicleService.getVehicleById(id);
+	}
+	
+	@PostMapping(value = "/vehicle/{id}")
+	public Vehicle updateVehicle(@Valid @RequestBody Vehicle vehicle, @PathVariable long id) {
+		return vehicleService.updateVehicle(vehicle, id);
+	}
+	
+	@DeleteMapping(value = "/vehicle/{id}")
+	public String deleteVehicle(@PathVariable long id) {
+		vehicleService.deleteVehicle(id);
+		return "Vehicle id: " + id + ", has been successfuly deleted";
+	}
 }
