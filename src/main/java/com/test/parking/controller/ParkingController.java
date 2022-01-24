@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -53,7 +54,7 @@ public class ParkingController {
 		return companyService.getCompanyById(id);
 	}
 	
-	@PostMapping(value = "/company/{id}")
+	@PutMapping(value = "/company/{id}")
 	public Company updateCompany(@Valid @RequestBody Company company, @PathVariable long id) {
 		return companyService.updateCompany(company, id);
 	}
@@ -63,8 +64,6 @@ public class ParkingController {
 		companyService.deleteCompany(id);
 		return "Company id: " + id + ", has been successfuly deleted";
 	}
-	
-	// Testar daqui em diante
 	
 	@PostMapping(value = "/vehicle")
 	public Vehicle registerVehicle(@Valid @RequestBody Vehicle vehicle) {
@@ -81,7 +80,7 @@ public class ParkingController {
 		return vehicleService.getVehicleById(id);
 	}
 	
-	@PostMapping(value = "/vehicle/{id}")
+	@PutMapping(value = "/vehicle/{id}")
 	public Vehicle updateVehicle(@Valid @RequestBody Vehicle vehicle, @PathVariable long id) {
 		return vehicleService.updateVehicle(vehicle, id);
 	}
@@ -92,9 +91,9 @@ public class ParkingController {
 		return "Vehicle id: " + id + ", has been successfuly deleted";
 	}
 	
-	@PostMapping(value = "/ticket_in")
-	public Ticket registerTicket(@Valid @RequestBody Ticket ticket) {
-		return ticketService.entranceTicket(ticket);
+	@PostMapping(value = "/ticket_in/{vehicle_id}")
+	public Ticket registerTicket(@PathVariable long vehicle_id) {
+		return ticketService.entranceTicket(vehicle_id);
 	}
 	
 	@GetMapping(value = "/ticket")
@@ -102,8 +101,8 @@ public class ParkingController {
 		return ticketService.listTicket();
 	}
 	
-	@PostMapping(value = "/ticket_out")
-	public Ticket exitTicket(@Valid @RequestBody Ticket ticket) {
-		return ticketService.exitTicket(ticket);
+	@PostMapping(value = "/ticket_out/{ticket_id}")
+	public Ticket exitTicket(@PathVariable long ticket_id) {
+		return ticketService.exitTicket(ticket_id);
 	}
 }

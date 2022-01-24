@@ -3,8 +3,6 @@ package com.test.parking.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.test.parking.model.Company;
@@ -76,11 +74,9 @@ public class ParkingSpaceService {
 		
 	}
 	
-	public ParkingSpace availableSpace() {
-		ParkingSpace parkingSpace = new ParkingSpace();
-		parkingSpace.setSpaceStatus(SpaceStatus.FREE);
-		Example<ParkingSpace> parkingExample = Example.of(parkingSpace);
-		return parkingRepository.findOne(parkingExample).orElse(null);
+	public ParkingSpace availableSpace(String spaceType) {
+		ParkingSpace parkingSpace = parkingRepository.findOneAvailableSpace(spaceType);
+		return parkingSpace;
 	}
 	
 	/*
