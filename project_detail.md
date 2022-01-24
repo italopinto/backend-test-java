@@ -45,3 +45,10 @@ Criar uma API REST para gerenciar um estacionamento de carros e motos.
 	- se tudo deu certo, a aplicação deve estar rodando na url: *http://localhost:8080/api/v1/parking*
 	
 ### Todos os endpoints estão documentados no arquivo "backend-api-collection.json", na pasta raiz do projeto, basta importá-lo no aplicativo [INSOMNIA](https://insomnia.rest/download).
+
+# TODO
+
+- [ ] Tratamento de erros;
+- [ ] Limitar o cadastro das empresas pelo CNPJ;
+- [ ] Limitar o cadastro de veículos pela placa do mesmo;
+- [ ] Limitar a criação de tickets de estacionamento, pela existência de saída ou não, evitando mais de um ticket para o mesmo veículo;
