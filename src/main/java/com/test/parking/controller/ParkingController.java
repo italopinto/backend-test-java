@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.parking.model.Company;
+import com.test.parking.model.Ticket;
 import com.test.parking.model.Vehicle;
 import com.test.parking.service.CompanyService;
+import com.test.parking.service.TicketService;
 import com.test.parking.service.VehicleService;
 
 @CrossOrigin("*")
@@ -31,6 +33,9 @@ public class ParkingController {
 	
 	@Autowired
 	private VehicleService vehicleService;
+	
+	@Autowired
+	private TicketService ticketService;
 	
 	@PostMapping(value = "/company")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -59,6 +64,8 @@ public class ParkingController {
 		return "Company id: " + id + ", has been successfuly deleted";
 	}
 	
+	// Testar daqui em diante
+	
 	@PostMapping(value = "/vehicle")
 	public Vehicle registerVehicle(@Valid @RequestBody Vehicle vehicle) {
 		return vehicleService.addVehicle(vehicle);
@@ -83,5 +90,20 @@ public class ParkingController {
 	public String deleteVehicle(@PathVariable long id) {
 		vehicleService.deleteVehicle(id);
 		return "Vehicle id: " + id + ", has been successfuly deleted";
+	}
+	
+	@PostMapping(value = "/ticket_in")
+	public Ticket registerTicket(@Valid @RequestBody Ticket ticket) {
+		return ticketService.entranceTicket(ticket);
+	}
+	
+	@GetMapping(value = "/ticket")
+	public List<Ticket> listTicket() {
+		return ticketService.listTicket();
+	}
+	
+	@PostMapping(value = "/ticket_out")
+	public Ticket exitTicket(@Valid @RequestBody Ticket ticket) {
+		return ticketService.exitTicket(ticket);
 	}
 }
