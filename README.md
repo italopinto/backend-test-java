@@ -56,3 +56,6 @@ Crie um fork do teste para acompanharmos o seu desenvolvimento através dos seus
 
 ## Obrigado!
 Agradecemos sua participação no teste. Boa sorte! 😄
+
+## Minha versão:
+https://github.com/italopinto/backend-test-java/blob/master/project_detail.md
