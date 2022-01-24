@@ -17,20 +17,18 @@ Criar uma API REST para gerenciar um estacionamento de carros e motos.
 	
 - Como rodar a aplicação:
 	- Requisitos para rodar o projeto em sua máquina:
-	
-					- O JDK mais recente, foi utilizado o JDK 17;
-					- O Maven mais recente;
-					- E o MySql mais recente.
+		- O JDK mais recente, foi utilizado o JDK 17;
+		- O Maven mais recente;
+		- E o MySql mais recente.
 		
-	- Após fazer clone do projeto, acesse o arquivo *"src/main/resources/application.properties"*
-					
-					- Mude os valores das seguintes propriedades, com suas credenciais do seu banco de dados
+	- Após fazer clone do projeto, acesse o arquivo *"src/main/resources/application.properties"*			
+		- Mude os valores das seguintes propriedades, com suas credenciais do seu banco de dados
 					MySql:
 					
-					```
-					spring.datasource.username = SEU_USUÁRIO_DO_BANCO
-					spring.datasource.password = SUA_SENHA
-					```
+	```
+	spring.datasource.username = SEU_USUÁRIO_DO_BANCO
+	spring.datasource.password = SUA_SENHA
+	```
 	
 	- Com as configurações do banco feitas, rode o seguinte comando do Maven para fazer build do projeto:
 	
